@@ -165,17 +165,28 @@ def main():
                         if paretoGP_trimmed.shape[0] > 0:
                             paretoGP_family = paretoGP_trimmed[paretoGP_trimmed['ParetoFamily']==family]
                             #color = list(set(paretoGP_family['color']))[0]
-                            fig[kk].add_trace(go.Mesh3d(
+                            # fig[kk].add_trace(go.Mesh3d(
+                            #     name='Pareto Front Approximation',
+                            #     visible=False, 
+                            #     x=paretoGP_family['Pareto_f1'], 
+                            #     y=paretoGP_family['Pareto_f2'], 
+                            #     z=paretoGP_family['Pareto_f3'],
+                            #     hovertext = paretoGP_family['hovertext'],
+                            #     hoverinfo = "text",
+                            #     #color = color,
+                            #     color = family, #np.log10(family),
+                            #     opacity=0.50
+                            # ))
+                            fig[kk].add_trace(scatter(
                                 name='Pareto Front Approximation',
                                 visible=False, 
+                                mode='markers', 
                                 x=paretoGP_family['Pareto_f1'], 
                                 y=paretoGP_family['Pareto_f2'], 
                                 z=paretoGP_family['Pareto_f3'],
                                 hovertext = paretoGP_family['hovertext'],
                                 hoverinfo = "text",
-                                #color = color,
-                                color = family, #np.log10(family),
-                                opacity=0.50
+                                marker=dict(color=10 * family + 1, size=6, symbol='circle', opacity=0.70)
                             ))
         
             # Evaluated Pareto front points
