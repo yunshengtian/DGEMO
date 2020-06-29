@@ -2,7 +2,7 @@ import numpy as np
 from pymoo.factory import get_performance_indicator
 
 
-def propose_next_batch(curr_pfront, pred_pfront, pred_pset, batch_size, labels):
+def propose_next_batch(curr_pfront, ref_point, pred_pfront, pred_pset, batch_size, labels):
     '''
     Propose next batch of design variables to evaluate by maximizing hypervolume contribution.
     Greedely add samples with maximum hypervolume from each family.
@@ -20,7 +20,6 @@ def propose_next_batch(curr_pfront, pred_pfront, pred_pset, batch_size, labels):
     #assert len(pred_pset) >= batch_size, "predicted pareto set is smaller than proposed batch size!"
 
     curr_pfront = curr_pfront.copy()
-    ref_point = np.max(np.vstack([curr_pfront, pred_pfront]), axis=0)
     hv = get_performance_indicator('hv', ref_point=ref_point)
     idx_choices = np.ma.array(np.arange(len(pred_pset)), mask=False) # mask array for index choices
     iter_idx_choices = np.ma.array(np.arange(len(pred_pset)), mask=False) # mask array for index choices of unvisited family samples
@@ -66,7 +65,7 @@ def propose_next_batch(curr_pfront, pred_pfront, pred_pset, batch_size, labels):
     return X_next, Y_next, family_lbls_next
 
 
-def propose_next_batch_without_label(curr_pfront, pred_pfront, pred_pset, batch_size):
+def propose_next_batch_without_label(curr_pfront, ref_point, pred_pfront, pred_pset, batch_size):
     '''
     Propose next batch of design variables to evaluate by maximizing hypervolume contribution
     Input:
@@ -80,7 +79,6 @@ def propose_next_batch_without_label(curr_pfront, pred_pfront, pred_pset, batch_
     #assert len(pred_pset) >= batch_size, "predicted pareto set is smaller than proposed batch size!
 
     curr_pfront = curr_pfront.copy()
-    ref_point = np.max(np.vstack([curr_pfront, pred_pfront]), axis=0)
     hv = get_performance_indicator('hv', ref_point=ref_point)
     idx_choices = np.ma.array(np.arange(len(pred_pset)), mask=False) # mask array for index choices
     next_batch_indices = []

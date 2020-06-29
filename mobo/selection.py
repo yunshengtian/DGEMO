@@ -126,7 +126,7 @@ class DGEMOSelect(Selection):
     def select(self, solution, surrogate_model, status, transformation):
         algo = solution['algo']
 
-        X_next, _, family_lbls_next = algo.propose_next_batch(status['pfront'], self.batch_size, transformation)
+        X_next, _, family_lbls_next = algo.propose_next_batch(status['pfront'], status['ref_point'], self.batch_size, transformation)
         family_lbls, approx_pset, approx_pfront = algo.get_sparse_front(transformation)
 
         info = {

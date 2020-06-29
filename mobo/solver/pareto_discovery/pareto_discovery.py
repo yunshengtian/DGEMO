@@ -410,6 +410,7 @@ class ParetoDiscovery(Algorithm):
 
         # initialize buffer
         self.buffer = get_buffer(self.problem.n_obj, **self.buffer_args)
+        self.buffer.origin = self.problem.transformation.do(y=self.buffer.origin)
         patch_ids = np.full(self.pop_size, self.patch_id) # NOTE: patch_ids here might not make sense
         self.patch_id += 1
         self.buffer.insert(pop_x, pop_f, patch_ids)
@@ -506,7 +507,7 @@ class ParetoDiscovery(Algorithm):
         xs = np.clip(xs, self.problem.xl, self.problem.xu)
         return xs
 
-    def propose_next_batch(self, curr_pfront, batch_size, transformation):
+    def propose_next_batch(self, curr_pfront, ref_point, batch_size, transformation):
         '''
         Propose next batch to evaluate for active learning. 
         Greedely propose sample with max HV until all families ar visited. Allow only samples with max HV from unvisited family.
@@ -520,7 +521,7 @@ class ParetoDiscovery(Algorithm):
         
         if len(approx_x) >= batch_size:
             # approximation result is enough to propose all candidates
-            curr_X_next, curr_Y_next, labels_next = propose_next_batch(curr_pfront, approx_y, approx_x, batch_size, labels)
+            curr_X_next, curr_Y_next, labels_next = propose_next_batch(curr_pfront, ref_point, approx_y, approx_x, batch_size, labels)
             X_next.append(curr_X_next)
             Y_next.append(curr_Y_next)
             family_lbls.append(labels_next)
@@ -535,7 +536,7 @@ class ParetoDiscovery(Algorithm):
             remain_batch_size = batch_size - len(approx_x)
             buffer_xs, buffer_ys = self.buffer.flattened()
             buffer_xs, buffer_ys = transformation.undo(buffer_xs, buffer_ys)
-            prop_X_next, prop_Y_next = propose_next_batch_without_label(curr_pfront, buffer_ys, buffer_xs, remain_batch_size)
+            prop_X_next, prop_Y_next = propose_next_batch_without_label(curr_pfront, ref_point, buffer_ys, buffer_xs, remain_batch_size)
             X_next.append(prop_X_next)
             Y_next.append(prop_Y_next)
             family_lbls.extend(np.full(remain_batch_size, -1))

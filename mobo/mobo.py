@@ -49,6 +49,7 @@ class MOBO:
             'pset': None,
             'pfront': None,
             'hv': None,
+            'ref_point': self.ref_point,
         }
 
         # other component-specific information that needs to be stored or exported

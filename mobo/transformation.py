@@ -48,24 +48,34 @@ class Transformation:
     def fit(self, x, y):
         self.x_scaler = self.x_scaler.fit(x)
         self.y_scaler = self.y_scaler.fit(y)
-    
+
     def do(self, x=None, y=None):
+        if x is not None:
+            x = np.atleast_2d(x)
+        if y is not None:
+            y = np.atleast_2d(y)
+
         if x is not None and y is not None:
-            return self.x_scaler.transform(x), self.y_scaler.transform(y)
+            return self.x_scaler.transform(x).squeeze(), self.y_scaler.transform(y).squeeze()
         elif x is not None:
-            return self.x_scaler.transform(x)
+            return self.x_scaler.transform(x).squeeze()
         elif y is not None:
-            return self.y_scaler.transform(y)
+            return self.y_scaler.transform(y).squeeze()
         else:
             return None
 
     def undo(self, x=None, y=None):
+        if x is not None:
+            x = np.atleast_2d(x)
+        if y is not None:
+            y = np.atleast_2d(y)
+
         if x is not None and y is not None:
-            return self.x_scaler.inverse_transform(x), self.y_scaler.inverse_transform(y)
+            return self.x_scaler.inverse_transform(x).squeeze(), self.y_scaler.inverse_transform(y).squeeze()
         elif x is not None:
-            return self.x_scaler.inverse_transform(x)
+            return self.x_scaler.inverse_transform(x).squeeze()
         elif y is not None:
-            return self.y_scaler.inverse_transform(y)
+            return self.y_scaler.inverse_transform(y).squeeze()
         else:
             return None
     
