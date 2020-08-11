@@ -50,34 +50,42 @@ class Transformation:
         self.y_scaler = self.y_scaler.fit(y)
 
     def do(self, x=None, y=None):
+        assert x is not None or y is not None
         if x is not None:
-            x = np.atleast_2d(x)
+            x_res = self.x_scaler.transform(np.atleast_2d(x))
+            if len(np.array(x).shape) < 2:
+                x_res = x_res.squeeze()
+
         if y is not None:
-            y = np.atleast_2d(y)
+            y_res = self.y_scaler.transform(np.atleast_2d(y))
+            if len(np.array(y).shape) < 2:
+                y_res = y_res.squeeze()
 
         if x is not None and y is not None:
-            return self.x_scaler.transform(x).squeeze(), self.y_scaler.transform(y).squeeze()
+            return x_res, y_res
         elif x is not None:
-            return self.x_scaler.transform(x).squeeze()
+            return x_res
         elif y is not None:
-            return self.y_scaler.transform(y).squeeze()
-        else:
-            return None
+            return y_res
 
     def undo(self, x=None, y=None):
+        assert x is not None or y is not None
         if x is not None:
-            x = np.atleast_2d(x)
+            x_res = self.x_scaler.inverse_transform(np.atleast_2d(x))
+            if len(np.array(x).shape) < 2:
+                x_res = x_res.squeeze()
+
         if y is not None:
-            y = np.atleast_2d(y)
+            y_res = self.y_scaler.inverse_transform(np.atleast_2d(y))
+            if len(np.array(y).shape) < 2:
+                y_res = y_res.squeeze()
 
         if x is not None and y is not None:
-            return self.x_scaler.inverse_transform(x).squeeze(), self.y_scaler.inverse_transform(y).squeeze()
+            return x_res, y_res
         elif x is not None:
-            return self.x_scaler.inverse_transform(x).squeeze()
+            return x_res
         elif y is not None:
-            return self.y_scaler.inverse_transform(y).squeeze()
-        else:
-            return None
+            return y_res
     
 
 class StandardTransform(Transformation):
