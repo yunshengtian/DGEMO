@@ -15,7 +15,7 @@ def main():
     problem_dir = get_problem_dir(args)
     algo_names = get_algo_names(args)
 
-    n_algo, n_seed = len(algo_names), args.n_seed
+    n_algo, n_seed, seed = len(algo_names), args.n_seed, args.seed
 
     # read result csvs
     # calculate average hypervolume indicator across seeds
@@ -27,6 +27,7 @@ def main():
     batch_size = None
     for i in range(n_algo):
         for j in range(n_seed):
+            if n_seed == 1: j = seed
             csv_path = f'{problem_dir}/{algo_names[i]}/{j}/EvaluatedSamples.csv'
             df = pd.read_csv(csv_path)
             data_list[i].append(df)
@@ -50,6 +51,7 @@ def main():
     df_boxplot = pd.DataFrame(columns=boxplot_col_names)
     for i in range(n_algo):
         for j in range(n_seed):
+            if n_seed == 1: j = seed
             num_alg_eval = df_HV_list[i].shape[0] - num_init_samples
             for k in [0.25 * num_alg_eval, 0.5 * num_alg_eval, 0.75 * num_alg_eval, num_alg_eval]:
                 df_boxplot = df_boxplot.append({
