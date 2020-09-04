@@ -65,7 +65,7 @@ def main():
         retStr = 'Input<br>'
         labels = []
         for i in range(n_var):
-            labels.append(chr(ord('A') + i))
+            labels.append(f'x{i + 1}')
         for i in range(n_obj):
             label_name = f'Uncertainty_f{i + 1}'
             if label_name in dfRow:

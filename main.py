@@ -36,15 +36,17 @@ def main():
     # optimization
     solution = optimizer.solve(X_init, Y_init)
 
+    # export true Pareto front to csv
+    if true_pfront is not None:
+        exporter.write_truefront_csv(true_pfront)
+
     for _ in range(args.n_iter):
         # get new design samples and corresponding performance
         X_next, Y_next = next(solution)
+        
+        # update & export current status to csv
         exporter.update(X_next, Y_next)
-
-    # export all result to csv
-    exporter.write_csvs()
-    if true_pfront is not None:
-        exporter.write_truefront_csv(true_pfront)
+        exporter.write_csvs()
 
     # close logger
     if logger is not None:

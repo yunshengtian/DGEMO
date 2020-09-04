@@ -40,7 +40,7 @@ class DataExport:
 
         # design variables
         for i in range(self.n_var):
-            var_name = chr(ord('A') + i)
+            var_name = f'x{i + 1}'
             d1[var_name] = X[:, i]
             d2[var_name] = pset[:, i]
             column_names.append(var_name)
@@ -94,7 +94,7 @@ class DataExport:
 
         # design variables
         for i in range(self.n_var):
-            var_name = chr(ord('A') + i)
+            var_name = f'x{i + 1}'
             d1[var_name] = X_next[:, i]
             d2[var_name] = pset[:, i]
 
@@ -121,7 +121,7 @@ class DataExport:
             d3 = {'iterID': np.full(approx_front_samples, self.iter, dtype=int)} # export pareto approximation data
 
             for i in range(self.n_var):
-                var_name = chr(ord('A') + i)
+                var_name = f'x{i + 1}'
                 d3[var_name] = approx_pset[:, i]
 
             for i in range(self.n_obj):
@@ -143,7 +143,7 @@ class DataExport:
             d3 = {'iterID': np.full(approx_front_samples, self.iter, dtype=int)}
 
             for i in range(self.n_var):
-                var_name = chr(ord('A') + i)
+                var_name = f'x{i + 1}'
                 d3[var_name] = approx_pset[:, i]
 
             for i in range(self.n_obj):
