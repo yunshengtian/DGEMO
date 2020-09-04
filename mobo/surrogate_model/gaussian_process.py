@@ -115,7 +115,7 @@ class GaussianProcess(SurrogateModel):
                     dK_Ki = dK_T @ gp._K_inv # dK_Ki: shape (N, n_var, N_train)
 
                     dy_var = -np.sum(dK_Ki * K + K_Ki * dK_T, axis=2) # dy_var: shape (N, n_var)
-                    dy_std = 0.5 * dy_var / y_std # dy_std: shape (N, n_var)
+                    dy_std = 0.5 * safe_divide(dy_var, y_std) # dy_std: shape (N, n_var)
                     dS.append(dy_std)
 
             if calc_hessian:
@@ -150,7 +150,7 @@ class GaussianProcess(SurrogateModel):
                     hK_Ki = hK_T @ gp._K_inv # hK_Ki: shape (N, n_var, n_var, N_train)
 
                     hy_var = -np.sum(hK_Ki * K + 2 * dK_Ki * dK + K_Ki * hK_T, axis=3) # hy_var: shape (N, n_var, n_var)
-                    hy_std = 0.5 * (hy_var * y_std - dy_var * dy_std) / y_var # hy_std: shape (N, n_var, n_var)
+                    hy_std = 0.5 * safe_divide(hy_var * y_std - dy_var * dy_std, y_var) # hy_std: shape (N, n_var, n_var)
                     hS.append(hy_std)
 
         F = np.stack(F, axis=1)
