@@ -3,7 +3,6 @@ import numpy as np
 from sklearn.cluster import KMeans
 from pymoo.factory import get_performance_indicator
 from pymoo.algorithms.nsga2 import calc_crowding_distance
-from .acquisition import IdentityFunc, EI, UCB, LCB
 
 '''
 Selection methods for new batch of samples to evaluate on real problem
@@ -53,13 +52,12 @@ class HVI(Selection):
     '''
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.acquisition = IdentityFunc()
 
     def select(self, solution, surrogate_model, status, transformation):
 
         pred_pset = solution['x']
-        val = surrogate_model.evaluate(pred_pset, std=self.acquisition.requires_std)
-        pred_pfront, _, _ = self.acquisition.evaluate(val)
+        val = surrogate_model.evaluate(pred_pset)
+        pred_pfront = val['F']
         pred_pset, pred_pfront = transformation.undo(pred_pset, pred_pfront)
 
         curr_pfront = status['pfront'].copy()

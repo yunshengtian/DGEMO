@@ -78,7 +78,7 @@ def get_acquisition_args(args=None):
     parser = ArgumentParser()
 
     parser.add_argument('--acquisition', type=str,  
-        choices=['identity', 'pi', 'ei', 'ucb', 'lcb'], default='identity', 
+        choices=['identity', 'pi', 'ei', 'ucb'], default='identity', 
         help='type of the acquisition function')
 
     args, _ = parser.parse_known_args(args)

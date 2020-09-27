@@ -16,14 +16,13 @@ def get_surrogate_model(name):
 
 
 def get_acquisition(name):
-    from .acquisition import IdentityFunc, PI, EI, UCB, LCB
+    from .acquisition import IdentityFunc, PI, EI, UCB
 
     acquisition = {
         'identity': IdentityFunc,
         'pi': PI,
         'ei': EI,
         'ucb': UCB,
-        'lcb': LCB,
     }
 
     acquisition['default'] = IdentityFunc
