@@ -32,9 +32,6 @@ def get_algo_names(args):
     # if algo argument not specified, return all algorithm names found under the problem directory
     if args.algo is None:
         args.algo = list(algo_names)
-    else:
-        for algo_name in args.algo:
-            assert algo_name in algo_names, f'algorithm name mismatch: {algo_name}'
 
     algo_names = args.algo
     return sorted(algo_names)

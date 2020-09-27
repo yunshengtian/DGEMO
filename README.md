@@ -1,6 +1,6 @@
 # Diversity-Guided Efficient Multi-Objective Optimization (DGEMO)
 
-Algorithm framework for multi-objective Bayesian optimization.
+Algorithm framework for multi-objective Bayesian optimization, including the implementation of DGEMO and other popular MOBO algorithms.
 
 ## Features
 
@@ -19,12 +19,12 @@ For DGEMO, we use Gaussian process as surrogate model, identity function as acqu
 baselines/ --- MOO baseline algorithms: NSGA-II
 mobo/
  ├── solver/ --- multi-objective solvers
+ ├── surrogate_model/ --- surrogate models
  ├── acquisition.py --- acquisition functions
  ├── algorithms.py --- high-level algorithm specifications
  ├── factory.py --- factory for importing different algorithm components
  ├── mobo.py --- main pipeline of multi-objective bayesian optimziation
  ├── selection.py --- selection methods for new samples
- ├── surrogate_model.py --- surrogate models
  ├── surrogate_problem.py --- multi-objective surrogate problem
  ├── transformation.py --- normalizations on data
  └── utils.py --- utility functions
