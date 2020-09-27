@@ -1,12 +1,12 @@
 # Diversity-Guided Efficient Multi-Objective Optimization (DGEMO)
 
-Algorithm framework for multi-objective Bayesian optimization, including the implementation of DGEMO and other popular MOBO algorithms.
+Algorithm framework for multi-objective Bayesian optimization, including the official implementation of DGEMO and re-implementations of other popular MOBO algorithms.
 
-## Features
+## Key Features
 
-- **Algorithm**: Support DGEMO, TSEMO, USeMO-EI, MOEA/D-EGO, ParEGO, other similar variants and custom design. See *mobo/algorithms.py* to select proper algorithm to use / define your own algorithm.
+- **Algorithm**: Support DGEMO, TSEMO, USeMO-EI, MOEA/D-EGO, ParEGO, NSGA-II and custom algorithms. See *mobo/algorithms.py* to select proper algorithm to use / define your own algorithm.
   - **Test problem**: Support: ZDT1-3, DTLZ1-6, OKA1-2, VLMOP2-3, RE. Also constraint handling is implemented, if the problem constraints are properly defined according to [Pymoo Problem Definition](https://pymoo.org/problems/custom.html) (see the "G" functions).
-- **Surrogate model**: Support Gaussian process as surrogate model to evaluate samples, or sampled functions by Thompson Sampling from the fitted Gaussian process. See *mobo/surrogate_model.py*.
+- **Surrogate model**: Support Gaussian process as surrogate model to evaluate samples, or sampled functions by Thompson Sampling from the fitted Gaussian process. See *mobo/surrogate_model/*.
 - **Acquisition function**: Support PI, EI, UCB and identity function as acquisition, see *mobo/acquisition.py*.
 - **Solver**: Support using NSGA-II, MOEA/D and ParetoDiscovery [[Schulz et al. 2018]](https://dl.acm.org/doi/10.1145/3197517.3201385) to solve the multi-objective surrogate problem. See *mobo/solver/*.
 - **Selection**: Support: HVI, uncertainty, random, etc. as criterion for selecting next (batch of) samples to evaluate on the real problem. See *mobo/selection.py*.
@@ -34,9 +34,7 @@ visualization/ --- performance visualization
 main.py --- main execution file for MOBO algorithms
 ```
 
-## Getting Started
-
-### Installation Setup
+## Requirements
 
 - Python version: tested in Python 3.7.7
 
@@ -56,6 +54,8 @@ main.py --- main execution file for MOBO algorithms
   ```
 
 - If the pip installed pymoo is not compiled (will raise warning when running the code), you can clone the pymoo github repository, compile and install this module as described [here](https://pymoo.org/installation.html#development), to gain extra speed-up compared to uncompiled version.
+
+## Getting Started
 
 ### Basic usage
 
@@ -92,6 +92,12 @@ python scripts/run.py --algo nsga2 parego moead-ego tsemo usemo-ei dgemo --probl
 ```
 
 This command produces the results on all problems using all algorithms with 10 different random seeds. In total there are 20 * 6 * 10 = 1200 individual experiments, with 20 iterations in each experiment, which could probably take hours or days to finish, depending on the hardware configurations and parallelization level. See Appendix C.2 in our paper for runtime (speed) statistics of different algorithms and our hardware platform for producing that statistics.
+
+To visualize this figure, run the following command:
+
+```
+python visualization/visualize_hv_all.py
+```
 
 ## Result
 
@@ -136,3 +142,7 @@ python visualization/visualize_hv_batch.py --problem zdt1 zdt2 zdt3 --algo dgemo
 This command will produce 3 figures for ZDT1, ZDT2 and ZDT3 problems respectively. In each figure, there are three hypervolume curves from experiments using DGEMO, TSEMO and ParEGO respectively, averaged across 10 random seeds.
 
 Note if you don't specify `--problem` or `--algo` arguments, it will automatically find all the problems or algorithms you have in the result folder.
+
+## Citation
+
+To be added.
