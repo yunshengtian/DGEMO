@@ -1,6 +1,6 @@
 # Diversity-Guided Efficient Multi-Objective Optimization (DGEMO)
 
-Algorithm framework for multi-objective Bayesian optimization, including the official implementation of DGEMO and re-implementations of other popular MOBO algorithms.
+Python implementation of the algorithm framework for multi-objective Bayesian optimization, including the official implementation of DGEMO and re-implementations of other popular MOBO algorithms.
 
 ## Key Features
 
