@@ -2,6 +2,8 @@
 
 Python implementation of the algorithm framework for multi-objective Bayesian optimization, including the official implementation of DGEMO and re-implementations of other popular MOBO algorithms.
 
+<img src="https://github.com/yunshengtian/DGEMO/blob/master/assets/spaces.png?raw=true" width="500">
+
 ## Key Features
 
 - **Algorithm**: Support DGEMO, TSEMO, USeMO-EI, MOEA/D-EGO, ParEGO, NSGA-II and custom algorithms. See *mobo/algorithms.py* to select proper algorithm to use / define your own algorithm.
