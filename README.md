@@ -79,7 +79,7 @@ This will run algorithm DGEMO and ParEGO on DTLZ1 and ZDT1 problems, with 10 dif
 
 ## Performance
 
-![performance](performance.png)
+![performance](assets/performance.png)
 
 To reproduce this result, run the following command:
 
