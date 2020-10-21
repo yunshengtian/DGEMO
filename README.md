@@ -47,10 +47,10 @@ main.py --- main execution file for MOBO algorithms
   conda activate mobo
   ```
 
-  Install other dependencies by pip:
+  Install another package by pip (which is used by DGEMO):
 
   ```
-  pip install -r requirements.txt
+  pip install pygco
   ```
 
 - If the pip installed pymoo is not compiled (will raise warning when running the code), you can clone the pymoo github repository, compile and install this module as described [here](https://pymoo.org/installation.html#development), to gain extra speed-up compared to uncompiled version.
@@ -65,11 +65,7 @@ Run the main file with python with specified arguments:
 python main.py --problem dtlz1 --n-var 6 --n-obj 2 --n-iter 20
 ```
 
-If you don't understand the meaning of the arguments, see *argument.py* or:
-
-```
-python main.py --help
-```
+If you don't understand the meaning of the arguments, please see *arguments.py*.
 
 ### Parallel experiment
 
