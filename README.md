@@ -1,8 +1,20 @@
 # Diversity-Guided Efficient Multi-Objective Optimization (DGEMO)
 
-Python implementation of the algorithm framework for multi-objective Bayesian optimization, including the official implementation of DGEMO and re-implementations of other popular MOBO algorithms.
+
 
 <img src="https://github.com/yunshengtian/DGEMO/blob/master/assets/spaces.png?raw=true" width="500">
+
+
+
+**Diversity-Guided Multi-Objective Bayesian Optimization With Batch Evaluations**
+
+[Mina Konaković Luković](http://people.csail.mit.edu/mina/)\*, [Yunsheng Tian](https://www.yunshengtian.com/)\*, [Wojciech Matusik](http://people.csail.mit.edu/wojciech/)
+
+*Thirty-fourth Conference on Neural Information Processing Systems (NeurIPS 2020)*
+
+## Overview
+
+This repository contains Python implementation of the algorithm framework for multi-objective Bayesian optimization, including the official implementation of DGEMO and re-implementations of other popular MOBO algorithms.
 
 ## Key Features
 
