@@ -19,7 +19,7 @@ This repository contains Python implementation of the algorithm framework for mu
 ## Key Features
 
 - **Algorithm**: Support DGEMO, TSEMO, USeMO-EI, MOEA/D-EGO, ParEGO, NSGA-II and custom algorithms. See *mobo/algorithms.py* to select proper algorithm to use / define your own algorithm.
-  - **Test problem**: Support: ZDT1-3, DTLZ1-6, OKA1-2, VLMOP2-3, RE. Also constraint handling is implemented, if the problem constraints are properly defined according to [Pymoo Problem Definition](https://pymoo.org/problems/custom.html) (see the "G" functions).
+- **Test problem**: Support: ZDT1-3, DTLZ1-6, OKA1-2, VLMOP2-3, RE. Also constraint handling is implemented, if the problem constraints are properly defined according to [Pymoo Problem Definition](https://pymoo.org/problems/custom.html) (see the "G" functions).
 - **Surrogate model**: Support Gaussian process as surrogate model to evaluate samples, or sampled functions by Thompson Sampling from the fitted Gaussian process. See *mobo/surrogate_model/*.
 - **Acquisition function**: Support PI, EI, UCB and identity function as acquisition, see *mobo/acquisition.py*.
 - **Solver**: Support using NSGA-II, MOEA/D and ParetoDiscovery [[Schulz et al. 2018]](https://dl.acm.org/doi/10.1145/3197517.3201385) to solve the multi-objective surrogate problem. See *mobo/solver/*.
