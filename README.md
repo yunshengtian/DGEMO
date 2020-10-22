@@ -1,10 +1,6 @@
 # Diversity-Guided Efficient Multi-Objective Optimization (DGEMO)
 
-
-
 <img src="https://github.com/yunshengtian/DGEMO/blob/master/assets/spaces.png?raw=true" width="500">
-
-
 
 **Diversity-Guided Multi-Objective Bayesian Optimization With Batch Evaluations**
 
