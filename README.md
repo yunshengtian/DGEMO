@@ -12,6 +12,8 @@
 
 *Thirty-fourth Conference on Neural Information Processing Systems (NeurIPS 2020)*
 
+[[Paper]](https://www.yunshengtian.com/files/NeurIPS2020/DGEMO.pdf) [[Supplementary]](https://www.yunshengtian.com/files/NeurIPS2020/DGEMO_supplementary.pdf) [[Poster]](https://www.yunshengtian.com/files/NeurIPS2020/DGEMO_poster.pdf)
+
 ## Overview
 
 This repository contains Python implementation of the algorithm framework for multi-objective Bayesian optimization, including the official implementation of DGEMO and re-implementations of other popular MOBO algorithms.
@@ -155,4 +157,14 @@ Note if you don't specify `--problem` or `--algo` arguments, it will automatical
 
 ## Citation
 
-To be added.
+If you find our repository helpful to your research, please cite our paper:
+
+```
+@article{konakovic2020diversity,
+  title={Diversity-Guided Multi-Objective Bayesian Optimization With Batch Evaluations},
+  author={Konakovic Lukovic, Mina and Tian, Yunsheng and Matusik, Wojciech},
+  journal={Advances in Neural Information Processing Systems},
+  volume={33},
+  year={2020}
+}
+```
