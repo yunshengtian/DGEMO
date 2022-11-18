@@ -12,7 +12,7 @@
 
 *Thirty-fourth Conference on Neural Information Processing Systems (NeurIPS 2020)*
 
-[[Paper]](https://www.yunshengtian.com/files/NeurIPS2020/DGEMO.pdf) [[Supplementary]](https://www.yunshengtian.com/files/NeurIPS2020/DGEMO_supplementary.pdf) [[Poster]](https://www.yunshengtian.com/files/NeurIPS2020/DGEMO_poster.pdf) [[Video]](https://youtu.be/dwEPBr2kLaQ)
+[[Paper]](https://www.yunshengtian.com/files/20-nips-dgemo/DGEMO.pdf) [[Supplementary]](https://www.yunshengtian.com/files/20-nips-dgemo/DGEMO_supplementary.pdf) [[Poster]](https://www.yunshengtian.com/files/20-nips-dgemo/DGEMO_poster.pdf) [[Video]](https://youtu.be/dwEPBr2kLaQ)
 
 ## Overview
 
