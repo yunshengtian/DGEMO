@@ -16,14 +16,6 @@ class RE(Problem, ABC):
     def __init__(self):
         Problem.__init__(self, n_var=self.n_var, n_obj=self.n_obj, xl=np.array(self.xl), xu=np.array(self.xu))
 
-    def _evaluate(self, x, out, *args, requires_F=True, **kwargs):
-        if requires_F:
-            out['F'] = np.column_stack([*self._evaluate_F(x)])
-
-    @abstractmethod
-    def _evaluate_F(self, x):
-        pass
-
     def _calc_pareto_front(self, *args, **kwargs):
         name = self.__class__.__name__
         file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), f'data/RE/ParetoFront/{name}.npy')
@@ -64,7 +56,7 @@ class RE1(RE):
         f1 = L * ((2 * x1) + np.sqrt(2.0) * x2 + np.sqrt(x3) + x4)
         f2 = (F * L) / E * (div(2.0, x1) + div(2.0 * np.sqrt(2.0), x2) - div(2.0 * np.sqrt(2.0), x3) + div(2.0, x4))
 
-        return f1, f2
+        return np.column_stack([f1, f2])
 
 
 class RE2(RE):
@@ -91,7 +83,7 @@ class RE2(RE):
 
         f2 = np.sum(g, axis=1)
 
-        return f1, f2
+        return np.column_stack([f1, f2])
 
 
 class RE3(RE):
@@ -129,7 +121,7 @@ class RE3(RE):
 
         f2 = np.sum(g, axis=1)
 
-        return f1, f2
+        return np.column_stack([f1, f2])
         
 
 class RE4(RE):
@@ -181,7 +173,7 @@ class RE4(RE):
 
         f3 = np.sum(g, axis=1)
 
-        return f1, f2, f3
+        return np.column_stack([f1, f2, f3])
 
 
 class RE5(RE):
@@ -211,7 +203,7 @@ class RE5(RE):
 
         f3 = np.sum(g, axis=1)
 
-        return f1, f2, f3
+        return np.column_stack([f1, f2, f3])
 
 
 class RE6(RE):
@@ -236,7 +228,7 @@ class RE6(RE):
 
         f3 = g
 
-        return f1, f2, f3
+        return np.column_stack([f1, f2, f3])
 
 
 class RE7(RE):
@@ -255,4 +247,4 @@ class RE7(RE):
         f2 = 0.153 - (0.322 * xAlpha) + (0.396 * xHA) + (0.424 * xOA) + (0.0226 * xOPTT) + (0.175 * xAlpha * xAlpha) + (0.0185 * xHA * xAlpha) - (0.0701 * xHA * xHA) - (0.251 * xOA * xAlpha) + (0.179 * xOA * xHA) + (0.0150 * xOA * xOA) + (0.0134 * xOPTT * xAlpha) + (0.0296 * xOPTT * xHA) + (0.0752 * xOPTT * xOA) + (0.0192 * xOPTT * xOPTT)
         f3 = 0.370 - (0.205 * xAlpha) + (0.0307 * xHA) + (0.108 * xOA) + (1.019 * xOPTT) - (0.135 * xAlpha * xAlpha) + (0.0141 * xHA * xAlpha) + (0.0998 * xHA * xHA) + (0.208 * xOA * xAlpha) - (0.0301 * xOA * xHA) - (0.226 * xOA * xOA) + (0.353 * xOPTT * xAlpha) - (0.0497 * xOPTT * xOA) - (0.423 * xOPTT * xOPTT) + (0.202 * xHA * xAlpha * xAlpha) - (0.281 * xOA * xAlpha * xAlpha) - (0.342 * xHA * xHA * xAlpha) - (0.245 * xHA * xHA * xOA) + (0.281 * xOA * xOA * xHA) - (0.184 * xOPTT * xOPTT * xAlpha) - (0.281 * xHA * xAlpha * xOA)
 
-        return f1, f2, f3
+        return np.column_stack([f1, f2, f3])

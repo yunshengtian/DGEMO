@@ -49,20 +49,19 @@ class DTLZ1(DTLZ):
     def _calc_pareto_front(self, ref_dirs=None):
         return 0.5 * ref_dirs
 
-    def _evaluate(self, x, out, *args, requires_F=True, **kwargs):
-        if requires_F:
-            X_, X_M = x[:, :self.n_obj - 1], x[:, self.n_obj - 1:]
-            g = self.g1(X_M)
+    def _evaluate_F(self, x):
+        X_, X_M = x[:, :self.n_obj - 1], x[:, self.n_obj - 1:]
+        g = self.g1(X_M)
 
-            f = []
-            for i in range(0, self.n_obj):
-                _f = 0.5 * (1 + g)
-                _f *= anp.prod(X_[:, :X_.shape[1] - i], axis=1)
-                if i > 0:
-                    _f *= 1 - X_[:, X_.shape[1] - i]
-                f.append(_f)
+        f = []
+        for i in range(0, self.n_obj):
+            _f = 0.5 * (1 + g)
+            _f *= anp.prod(X_[:, :X_.shape[1] - i], axis=1)
+            if i > 0:
+                _f *= 1 - X_[:, X_.shape[1] - i]
+            f.append(_f)
 
-            out["F"] = anp.column_stack(f)
+        return anp.column_stack(f)
 
 
 class DTLZ2(DTLZ):
@@ -72,11 +71,10 @@ class DTLZ2(DTLZ):
     def _calc_pareto_front(self, ref_dirs):
         return generic_sphere(ref_dirs)
 
-    def _evaluate(self, x, out, *args, requires_F=True, **kwargs):
-        if requires_F:
-            X_, X_M = x[:, :self.n_obj - 1], x[:, self.n_obj - 1:]
-            g = self.g2(X_M)
-            out["F"] = self.obj_func(X_, g, alpha=1)
+    def _evaluate_F(self, x):
+        X_, X_M = x[:, :self.n_obj - 1], x[:, self.n_obj - 1:]
+        g = self.g2(X_M)
+        return self.obj_func(X_, g, alpha=1)
 
 
 class DTLZ3(DTLZ):
@@ -86,11 +84,10 @@ class DTLZ3(DTLZ):
     def _calc_pareto_front(self, ref_dirs):
         return generic_sphere(ref_dirs)
 
-    def _evaluate(self, x, out, *args, requires_F=True, **kwargs):
-        if requires_F:
-            X_, X_M = x[:, :self.n_obj - 1], x[:, self.n_obj - 1:]
-            g = self.g1(X_M)
-            out["F"] = self.obj_func(X_, g, alpha=1)
+    def _evaluate_F(self, x):
+        X_, X_M = x[:, :self.n_obj - 1], x[:, self.n_obj - 1:]
+        g = self.g1(X_M)
+        return self.obj_func(X_, g, alpha=1)
 
 
 class DTLZ4(DTLZ):
@@ -102,11 +99,10 @@ class DTLZ4(DTLZ):
     def _calc_pareto_front(self, ref_dirs):
         return generic_sphere(ref_dirs)
 
-    def _evaluate(self, x, out, *args, requires_F=True, **kwargs):
-        if requires_F:
-            X_, X_M = x[:, :self.n_obj - 1], x[:, self.n_obj - 1:]
-            g = self.g2(X_M)
-            out["F"] = self.obj_func(X_, g, alpha=self.alpha)
+    def _evaluate_F(self, x):
+        X_, X_M = x[:, :self.n_obj - 1], x[:, self.n_obj - 1:]
+        g = self.g2(X_M)
+        return self.obj_func(X_, g, alpha=self.alpha)
 
 
 class DTLZ5(DTLZ):
@@ -119,15 +115,14 @@ class DTLZ5(DTLZ):
         else:
             raise Exception("Not implemented yet.")
 
-    def _evaluate(self, x, out, *args, requires_F=True, **kwargs):
-        if requires_F:
-            X_, X_M = x[:, :self.n_obj - 1], x[:, self.n_obj - 1:]
-            g = self.g2(X_M)
+    def _evaluate_F(self, x):
+        X_, X_M = x[:, :self.n_obj - 1], x[:, self.n_obj - 1:]
+        g = self.g2(X_M)
 
-            theta = 1 / (2 * (1 + g[:, None])) * (1 + 2 * g[:, None] * X_)
-            theta = anp.column_stack([x[:, 0], theta[:, 1:]])
+        theta = 1 / (2 * (1 + g[:, None])) * (1 + 2 * g[:, None] * X_)
+        theta = anp.column_stack([x[:, 0], theta[:, 1:]])
 
-            out["F"] = self.obj_func(theta, g)
+        return self.obj_func(theta, g)
 
 
 class DTLZ6(DTLZ):
@@ -140,13 +135,12 @@ class DTLZ6(DTLZ):
         else:
             raise Exception("Not implemented yet.")
 
-    def _evaluate(self, x, out, *args, requires_F=True, **kwargs):
-        if requires_F:
-            X_, X_M = x[:, :self.n_obj - 1], x[:, self.n_obj - 1:]
-            g = anp.sum(anp.power(X_M, 0.1), axis=1)
+    def _evaluate_F(self, x):
+        X_, X_M = x[:, :self.n_obj - 1], x[:, self.n_obj - 1:]
+        g = anp.sum(anp.power(X_M, 0.1), axis=1)
 
-            theta = 1 / (2 * (1 + g[:, None])) * (1 + 2 * g[:, None] * X_)
-            theta = anp.column_stack([x[:, 0], theta[:, 1:]])
+        theta = 1 / (2 * (1 + g[:, None])) * (1 + 2 * g[:, None] * X_)
+        theta = anp.column_stack([x[:, 0], theta[:, 1:]])
 
-            out["F"] = self.obj_func(theta, g)
+        return self.obj_func(theta, g)
 

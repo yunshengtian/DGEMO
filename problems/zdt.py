@@ -16,13 +16,12 @@ class ZDT1(ZDT):
         x = anp.linspace(0, 1, n_pareto_points)
         return anp.array([x, 1 - anp.sqrt(x)]).T
 
-    def _evaluate(self, x, out, *args, requires_F=True, **kwargs):
-        if requires_F:
-            f1 = x[:, 0]
-            g = 1 + 9.0 / (self.n_var - 1) * anp.sum(x[:, 1:], axis=1)
-            f2 = g * (1 - anp.power((f1 / g), 0.5))
+    def _evaluate_F(self, x):
+        f1 = x[:, 0]
+        g = 1 + 9.0 / (self.n_var - 1) * anp.sum(x[:, 1:], axis=1)
+        f2 = g * (1 - anp.power((f1 / g), 0.5))
 
-            out["F"] = anp.column_stack([f1, f2])
+        return anp.column_stack([f1, f2])
 
 
 class ZDT2(ZDT):
@@ -31,14 +30,13 @@ class ZDT2(ZDT):
         x = anp.linspace(0, 1, n_pareto_points)
         return anp.array([x, 1 - anp.power(x, 2)]).T
 
-    def _evaluate(self, x, out, *args, requires_F=True, **kwargs):
-        if requires_F:
-            f1 = x[:, 0]
-            c = anp.sum(x[:, 1:], axis=1)
-            g = 1.0 + 9.0 * c / (self.n_var - 1)
-            f2 = g * (1 - anp.power((f1 * 1.0 / g), 2))
+    def _evaluate_F(self, x):
+        f1 = x[:, 0]
+        c = anp.sum(x[:, 1:], axis=1)
+        g = 1.0 + 9.0 * c / (self.n_var - 1)
+        f2 = g * (1 - anp.power((f1 * 1.0 / g), 2))
 
-            out["F"] = anp.column_stack([f1, f2])
+        return anp.column_stack([f1, f2])
 
 
 class ZDT3(ZDT):
@@ -64,12 +62,11 @@ class ZDT3(ZDT):
 
         return pf
 
-    def _evaluate(self, x, out, *args, requires_F=True, **kwargs):
-        if requires_F:
-            f1 = x[:, 0]
-            c = anp.sum(x[:, 1:], axis=1)
-            g = 1.0 + 9.0 * c / (self.n_var - 1)
-            f2 = g * (1 - anp.power(f1 * 1.0 / g, 0.5) - (f1 * 1.0 / g) * anp.sin(10 * anp.pi * f1))
+    def _evaluate_F(self, x):
+        f1 = x[:, 0]
+        c = anp.sum(x[:, 1:], axis=1)
+        g = 1.0 + 9.0 * c / (self.n_var - 1)
+        f2 = g * (1 - anp.power(f1 * 1.0 / g, 0.5) - (f1 * 1.0 / g) * anp.sin(10 * anp.pi * f1))
 
-            out["F"] = anp.column_stack([f1, f2])
+        return anp.column_stack([f1, f2])
 

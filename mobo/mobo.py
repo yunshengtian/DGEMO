@@ -112,6 +112,7 @@ class MOBO:
 
             # update dataset
             Y_next = self.real_problem.evaluate(X_next)
+            if self.real_problem.n_constr > 0: Y_next = Y_next[0]
             self._update_status(X_next, Y_next)
             timer.log('New samples evaluated')
 

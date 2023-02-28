@@ -56,7 +56,7 @@ def main():
             for k in [0.25 * num_alg_eval, 0.5 * num_alg_eval, 0.75 * num_alg_eval, num_alg_eval]:
                 df_boxplot = df_boxplot.append({
                     'SampleId': k, 
-                    'Hypervolume_indicator': df_HV_list[i][f'Hypervolume_indicator_{j + 1}'][k + num_init_samples - 1],
+                    'Hypervolume_indicator': df_HV_list[i][f'Hypervolume_indicator_{j + 1}'][int(k) + num_init_samples - 1],
                     'RunId': j,
                     'AlgorithmId': i
                     }, ignore_index=True)

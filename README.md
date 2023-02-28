@@ -18,6 +18,8 @@
 
 This repository contains Python implementation of the algorithm framework for multi-objective Bayesian optimization, including the official implementation of DGEMO and re-implementations of other popular MOBO algorithms.
 
+**News (02/2023)**: We have added [instructions](#custom-problem-setup) on how to set up your custom problem in this code repository for optimization.
+
 ## Key Features
 
 - **Algorithm**: Support DGEMO, TSEMO, USeMO-EI, MOEA/D-EGO, ParEGO, NSGA-II and custom algorithms. See *mobo/algorithms.py* to select proper algorithm to use / define your own algorithm.
@@ -154,6 +156,39 @@ python visualization/visualize_hv_batch.py --problem zdt1 zdt2 zdt3 --algo dgemo
 This command will produce 3 figures for ZDT1, ZDT2 and ZDT3 problems respectively. In each figure, there are three hypervolume curves from experiments using DGEMO, TSEMO and ParEGO respectively, averaged across 10 random seeds.
 
 Note if you don't specify `--problem` or `--algo` arguments, it will automatically find all the problems or algorithms you have in the result folder.
+
+## Custom Problem Setup
+
+If you are interested in trying DGEMO for your own problems, here are the necessary steps:
+
+- First, to define your custom problem, here is a basic template assuming you put this file as `problems/myproblem.py`.  Here in `__init__()`, we set 3 design variables (`n_var`), 2 objectives (`n_obj`), 0 constraints (`n_constr`), the lower bound of the design variables as 0 (`xl`) and upper bound as 1 (`xu`). Next, the objective evaluation function is defined as `_evaluate_F()`, where the argument `x` is a batch of design variables. As a simple example, we define the first objective as the first design variable, and the second objective as the second design variable subtracting the third design variable. 
+
+```python
+import numpy as np
+from .problem import Problem
+
+class MyProblem(Problem):
+  
+  	def __init__(self):
+      	super().__init__(n_var=3, n_obj=2, n_constr=0, xl=0, xu=1)
+        
+    def _evaluate_F(self, x):
+      	x1, x2, x3 = x[:, 0], x[:, 1], x[:, 2]
+        f1 = x1
+        f2 = x2 - x3
+        return np.column_stack([f1, f2])
+```
+
+- Add the following line to `problems/__init__.py`:
+
+```python
+from problems.myproblem import MyProblem
+```
+
+- Append a tuple `('myproblem', MyProblem)` to the `problems` variable in `get_problem_options()` in `problems/common.py` such that our problem is callable from command line arguments.
+- To run optimization on the custom problem, run `main.py` with `--problem myproblem` and other necessary arguments.
+
+For more examples of predefined optimization problems, please refer to `problems/`.
 
 ## Citation
 

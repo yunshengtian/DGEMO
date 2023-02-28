@@ -139,6 +139,18 @@ class Problem(PymooProblem):
             else:
                 return tuple([out[val] for val in return_values_of])
 
+    def _evaluate_F(self, x):
+        return None
+
+    def _evaluate_G(self, x):
+        return None
+
+    def _evaluate(self, x, out, *args, return_values_of=None, **kwargs):
+        if "F" in return_values_of:
+            out["F"] = self._evaluate_F(x)
+        if "G" in return_values_of or "feasible" in return_values_of or "CV" in return_values_of:
+            out["G"] = self._evaluate_G(x)
+
     def _evaluate_batch(self, X, calc_gradient, out, *args, **kwargs):
         # NOTE: to use self-calculated dF (gradient) rather than autograd.numpy, which is not supported by Pymoo
         self._evaluate(X, out, *args, calc_gradient=calc_gradient, **kwargs)

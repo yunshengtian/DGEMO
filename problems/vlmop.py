@@ -11,14 +11,13 @@ class VLMOP2(Problem):
         self.xl = -2.0 * anp.ones(n_var)
         self.xu = 2.0 * anp.ones(n_var)
 
-    def _evaluate(self, x, out, *args, requires_F=True, **kwargs):
-        if requires_F:
-            n = self.n_var
+    def _evaluate_F(self, x):
+        n = self.n_var
 
-            f1 = 1 - anp.exp(-anp.sum((x - 1 / anp.sqrt(n)) ** 2, axis=1))
-            f2 = 1 - anp.exp(-anp.sum((x + 1 / anp.sqrt(n)) ** 2, axis=1))
+        f1 = 1 - anp.exp(-anp.sum((x - 1 / anp.sqrt(n)) ** 2, axis=1))
+        f2 = 1 - anp.exp(-anp.sum((x + 1 / anp.sqrt(n)) ** 2, axis=1))
 
-            out['F'] = anp.column_stack([f1, f2])
+        return anp.column_stack([f1, f2])
 
     def _calc_pareto_front(self, n_pareto_points=100):
         n = self.n_var
@@ -38,15 +37,14 @@ class VLMOP3(Problem):
         self.xl = anp.array([-3.0, -3.0])
         self.xu = anp.array([3.0, 3.0])
 
-    def _evaluate(self, x, out, *args, requires_F=True, **kwargs):
-        if requires_F:
-            x1, x2 = x[:, 0], x[:, 1]
+    def _evaluate_F(self, x):
+        x1, x2 = x[:, 0], x[:, 1]
 
-            f1 = 0.5 * (x1 ** 2 + x2 ** 2) + anp.sin(x1 ** 2 + x2 ** 2)
-            f2 = (3 * x1 - 2 * x2 + 4) ** 2 / 8 + (x1 - x2 + 1) ** 2 / 27 + 15
-            f3 = 1 / (x1 ** 2 + x2 ** 2 + 1) - 1.1 * anp.exp(-x1 ** 2 - x2 ** 2)
+        f1 = 0.5 * (x1 ** 2 + x2 ** 2) + anp.sin(x1 ** 2 + x2 ** 2)
+        f2 = (3 * x1 - 2 * x2 + 4) ** 2 / 8 + (x1 - x2 + 1) ** 2 / 27 + 15
+        f3 = 1 / (x1 ** 2 + x2 ** 2 + 1) - 1.1 * anp.exp(-x1 ** 2 - x2 ** 2)
 
-            out['F'] = anp.column_stack([f1, f2, f3])
+        return anp.column_stack([f1, f2, f3])
 
     def _calc_pareto_front(self):
         raise Exception("Not implemented yet.")
